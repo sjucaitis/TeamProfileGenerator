@@ -17,35 +17,8 @@ const teamMembers = [];
 const arrayId = [];
 
 function teamMenu() {
-    function  createTeam(){
-       
-       //inquirer prompt creates relevant function based on user's selected team member type
-        inquirer.prompt([
-            {
-                type:"list",
-                name: "teamChoice",
-                message:"Which type of team member would you like to add?",
-                choices:[
-                    "Engineer",
-                    "Intern",
-                    "I do not want any more employees. Show me my team!"
-                ]
-            }
-        ]).then(chosen =>
-            {
-                switch(chosen.teamChoice){
-                    case "Engineer":
-                        createEngineer();
-                        break;
-                    case "Intern":
-                        createIntern();
-                        break;
-                    default:
-                        buildTeam();
-                }
-    });
-  // provides prompt to user for manager info
-    function createManager() {
+      // provides prompt to user for manager info
+      function createManager() {
         inquirer.prompt([
             {
                 type: "input",
@@ -101,6 +74,34 @@ function teamMenu() {
             arrayId.push(answers.managerID)
         })
     }
+
+    function  createTeam(){
+       
+       //inquirer prompt creates relevant function based on user's selected team member type
+        inquirer.prompt([
+            {
+                type:"list",
+                name: "teamChoice",
+                message:"Which type of team member would you like to add?",
+                choices:[
+                    "Engineer",
+                    "Intern",
+                    "I do not want any more employees. Show me my team!"
+                ]
+            }
+        ]).then(chosen =>
+            {
+                switch(chosen.teamChoice){
+                    case "Engineer":
+                        createEngineer();
+                        break;
+                    case "Intern":
+                        createIntern();
+                        break;
+                    default:
+                        buildTeam();
+                }
+    })
 
     //creates prompts for user to enter information if user desires to add engineer to team
     function createEngineer() {
@@ -227,5 +228,6 @@ function teamMenu() {
         }
         fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
       }
-}
+};
+
 teamMenu()
